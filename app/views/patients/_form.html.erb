@@ -1,0 +1,45 @@
+<%= form_for(@patient) do |f| %>
+  <% if @patient.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
+
+      <ul>
+      <% @patient.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :first_name %>:
+    <%= f.text_field :first_name %>
+  </div>
+  <div class="field">
+    <%= f.label :middle_name %>:
+    <%= f.text_field :middle_name %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %>:
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field">
+    <%= f.label :date_of_birth %>:
+    <%= f.date_select :date_of_birth %>
+  </div>
+  <div class="field">
+    <%= f.label :gender %>:
+    <%= f.select :gender, %w(Not\ available Male Female), prompt: true %>
+  </div>
+  <div class="field">
+    <%= f.label :status %>:
+    <%= f.select :status, %w(Initial Referred Treatment Closed), prompt: true %>
+  </div>
+  <div class="field">
+    <%= f.label :location_id %>:
+    <%= f.select :location_id, @locations.map{|loc| [loc.name, loc.id]}, prompt: true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
