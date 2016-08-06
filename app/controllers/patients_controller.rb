@@ -10,7 +10,7 @@ class PatientsController < ApplicationController
   # GET /patients/1
   # GET /patients/1.json
   def show
-    @locations = Location.all.order(:name)
+      Patient.increment_counter(:viewed_count, @patient.id)
   end
 
   # GET /patients/new

@@ -15,3 +15,8 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore all Vim temporary files
+*~
+*swp
+*swo

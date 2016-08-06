@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160806071543) do
+ActiveRecord::Schema.define(version: 20160806135855) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "code"
@@ -27,9 +27,9 @@ ActiveRecord::Schema.define(version: 20160806071543) do
     t.date     "date_of_birth"
     t.string   "gender"
     t.string   "status"
-    t.integer  "viewed_count"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "viewed_count",  default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.datetime "deleted_at"
     t.integer  "location_id"
   end
