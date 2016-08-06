@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+<div>
+    <p><h2><strong>Location information:</strong></h2></p>
+
 <p>
   <strong>Code:</strong>
   <%= @location.code %>
@@ -9,6 +12,39 @@
   <strong>Name:</strong>
   <%= @location.name %>
 </p>
+</div>
+
+<br><br>
+<div>
+    <h2><strong>Patients in <%= @location.name %>:</strong></h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>First name</th>
+          <th>Middle name</th>
+          <th>Last name</th>
+          <th>Date of birth</th>
+          <th>Gender</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @patients.each do |patient| %>
+          <tr>
+            <td><%= patient.first_name %></td>
+            <td><%= patient.middle_name %></td>
+            <td><%= patient.last_name %></td>
+            <td><%= patient.date_of_birth %></td>
+            <td><%= patient.gender %></td>
+            <td><%= patient.status %></td>
+            <td><%= link_to 'Show', patient %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
 <%= link_to 'Back', locations_path %>
