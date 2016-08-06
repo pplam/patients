@@ -64,6 +64,10 @@ class PatientsController < ApplicationController
     end
   end
 
+  def onTreatment
+      @patients = Patient.where(status: "Treatment")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_patient

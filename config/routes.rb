@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/patients/onTreatment" => "patients#onTreatment", :as => "onTreatment_patient"
   resources :locations
   resources :patients
   # The priority is based upon order of creation: first created -> highest priority.
