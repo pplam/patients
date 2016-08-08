@@ -6,10 +6,8 @@
   <thead>
     <tr>
       <th>Medical record</th>
-      <th>First name</th>
-      <th>Middle name</th>
-      <th>Last name</th>
-      <th>Date of birth</th>
+      <th>Full name</th>
+      <th>Age</th>
       <th>Gender</th>
       <th>Status</th>
       <th>Viewed count</th>
@@ -21,11 +19,9 @@
   <tbody>
     <% @patients.each do |patient| %>
       <tr>
-          <td><%= "MR" + patient.id.to_s.rjust(6, '0') %></td>
-        <td><%= patient.first_name %></td>
-        <td><%= patient.middle_name %></td>
-        <td><%= patient.last_name %></td>
-        <td><%= patient.date_of_birth %></td>
+        <td><%= mr(patient.id) %></td>
+        <td><%= full_name(patient.first_name, patient.middle_name, patient.last_name) %></td>
+        <td><%= age(patient.date_of_birth) %></td>
         <td><%= patient.gender %></td>
         <td><%= patient.status %></td>
         <td><%= patient.viewed_count %></td>

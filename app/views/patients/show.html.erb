@@ -40,5 +40,10 @@
   <%= @patient.viewed_count %>
 </p>
 
+<p>
+  <strong>Location:</strong>
+  <%= @patient.location.name %>
+</p>
+
 <%= link_to 'Edit', edit_patient_path(@patient) %> |
 <%= link_to 'Back', patients_path %>
