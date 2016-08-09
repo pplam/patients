@@ -27,12 +27,11 @@ RSpec.describe "patients/index", :type => :view do
 
   it "renders a list of patients" do
     render
-    assert_select "tr>td", :text => "First Name".to_s, :count => 2
-    assert_select "tr>td", :text => "MyString".to_s, :count => 2
-    assert_select "tr>td", :text => "Last Name".to_s, :count => 2
+    assert_select "tr>td", :text => "Last Name, First Name MyString".to_s, :count => 2
     assert_select "tr>td", :text => "Male".to_s, :count => 2
     assert_select "tr>td", :text => "Initial".to_s, :count => 2
     assert_select "tr>td", :text => 1.to_s, :count => 2
+    assert_select "tr>td", :text => "".to_s, :count => 2
     assert_select "tr>td", :text => "Name".to_s, :count => 2
     assert_select "tr>td", :text => "MR000001".to_s, :count => 1
     assert_select "tr>td", :text => "MR000002".to_s, :count => 1

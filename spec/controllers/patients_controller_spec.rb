@@ -28,7 +28,7 @@ RSpec.describe PatientsController, :type => :controller do
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+      {first_name: [nil, "first_name"*4], last_name: [nil, "last_name"*4], status: [nil, "invalid"], location_id: nil, gender: "invalid", middle_name: "middle_name"}
   }
 
   # This should return the minimal set of values that should be in the session
@@ -36,122 +36,166 @@ RSpec.describe PatientsController, :type => :controller do
   # PatientsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET index" do
+  # Setup locations
+  let(:locs){
+        locations = []
+        5.times.each{ locations.push create(:location) }
+        locations
+  }
+
+
+  describe "GET #index" do
     it "assigns all patients as @patients" do
-      patient = Patient.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:patients)).to eq([patient])
+      arr = []
+      5.times.each{ arr.push create(:patient) }
+      get :index, {}
+      expect(assigns(:patients)).to eq(arr)
+    end
+
+    it "renders the 'index' view" do
+        get :index
+        expect(response).to render_template :index
     end
   end
 
-  describe "GET show" do
+  describe "GET #show" do
+    subject { create :patient }
+
     it "assigns the requested patient as @patient" do
-      patient = Patient.create! valid_attributes
-      get :show, {:id => patient.to_param}, valid_session
-      expect(assigns(:patient)).to eq(patient)
+      get :show, {:id => subject.to_param}
+      expect(assigns(:patient)).to eq(subject)
+    end
+
+    it "render the 'show' view" do
+      get :show, {:id => subject.to_param}
+      expect(response).to render_template :show
     end
   end
 
-  describe "GET new" do
+  describe "GET #new" do
     it "assigns a new patient as @patient" do
-      get :new, {}, valid_session
+      get :new, {}
       expect(assigns(:patient)).to be_a_new(Patient)
     end
-  end
 
-  describe "GET edit" do
-    it "assigns the requested patient as @patient" do
-      patient = Patient.create! valid_attributes
-      get :edit, {:id => patient.to_param}, valid_session
-      expect(assigns(:patient)).to eq(patient)
+    it "assign all locations as @locations" do
+        get :new
+        expect(assigns(:locations)).to eq(locs)
+    end
+
+    it "renders the 'new' view" do
+        get :new
+        expect(response).to render_template :new
     end
   end
 
-  describe "POST create" do
+  describe "GET #edit" do
+    subject { create :patient }
+
+    it "assigns the requested patient as @patient" do
+      get :edit, {:id => subject.to_param}
+      expect(assigns(:patient)).to eq(subject)
+    end
+
+    it "assigns all locations as @locations" do
+        get :edit, { id: subject.to_param }
+        expect(assigns(:locations)).to eq(locs)
+    end
+
+    it "renders the 'edit' view" do
+        get :edit, {id: subject.to_param}
+        expect(response).to render_template(:edit)
+    end
+  end
+
+  describe "POST #create" do
     describe "with valid params" do
       it "creates a new Patient" do
         expect {
-          post :create, {:patient => valid_attributes}, valid_session
+            post :create, {patient: attributes_for(:patient)}
         }.to change(Patient, :count).by(1)
       end
 
       it "assigns a newly created patient as @patient" do
-        post :create, {:patient => valid_attributes}, valid_session
+        post :create, {:patient => attributes_for(:patient)}
         expect(assigns(:patient)).to be_a(Patient)
         expect(assigns(:patient)).to be_persisted
       end
 
       it "redirects to the created patient" do
-        post :create, {:patient => valid_attributes}, valid_session
+        post :create, {:patient => attributes_for(:patient)}
         expect(response).to redirect_to(Patient.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved patient as @patient" do
-        post :create, {:patient => invalid_attributes}, valid_session
+        post :create, {:patient => attributes_for(:patient, first_name: nil)}
         expect(assigns(:patient)).to be_a_new(Patient)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:patient => invalid_attributes}, valid_session
+        post :create, {:patient => attributes_for(:patient, first_name: nil)}
         expect(response).to render_template("new")
       end
     end
   end
 
-  describe "PUT update" do
+  describe "PUT #update" do
+    let(:patient){
+        create :patient
+    }
+
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+          attributes_for(:patient, first_name: "new_first_name")
       }
 
       it "updates the requested patient" do
-        patient = Patient.create! valid_attributes
-        put :update, {:id => patient.to_param, :patient => new_attributes}, valid_session
+        put :update, {:id => patient.to_param, :patient => new_attributes}
         patient.reload
-        skip("Add assertions for updated state")
+        expect(patient.first_name).to eq("new_first_name")
       end
 
       it "assigns the requested patient as @patient" do
-        patient = Patient.create! valid_attributes
-        put :update, {:id => patient.to_param, :patient => valid_attributes}, valid_session
+        put :update, {:id => patient.to_param, :patient => new_attributes}#}
         expect(assigns(:patient)).to eq(patient)
       end
 
       it "redirects to the patient" do
-        patient = Patient.create! valid_attributes
-        put :update, {:id => patient.to_param, :patient => valid_attributes}, valid_session
+        put :update, {:id => patient.to_param, :patient => new_attributes}
         expect(response).to redirect_to(patient)
       end
     end
 
     describe "with invalid params" do
       it "assigns the patient as @patient" do
-        patient = Patient.create! valid_attributes
-        put :update, {:id => patient.to_param, :patient => invalid_attributes}, valid_session
+        put :update, {:id => patient.to_param, :patient => attributes_for(:patient, first_name: nil)}
         expect(assigns(:patient)).to eq(patient)
       end
 
       it "re-renders the 'edit' template" do
-        patient = Patient.create! valid_attributes
-        put :update, {:id => patient.to_param, :patient => invalid_attributes}, valid_session
+        put :update, {:id => patient.to_param, :patient => attributes_for(:patient, first_name: nil)}
         expect(response).to render_template("edit")
       end
     end
   end
 
-  describe "DELETE destroy" do
+  describe "DELETE #destroy" do
+    # before(:each) do
+    #     patient = create(:patient)
+    # end
+
     it "destroys the requested patient" do
-      patient = Patient.create! valid_attributes
+      patient = create :patient
       expect {
-        delete :destroy, {:id => patient.to_param}, valid_session
+        delete :destroy, {:id => patient.to_param}
       }.to change(Patient, :count).by(-1)
     end
 
     it "redirects to the patients list" do
-      patient = Patient.create! valid_attributes
-      delete :destroy, {:id => patient.to_param}, valid_session
+      patient = create :patient
+      delete :destroy, {:id => patient.to_param}
       expect(response).to redirect_to(patients_url)
     end
   end
