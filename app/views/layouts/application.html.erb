@@ -7,8 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <h1 class="navbar-brand">Patients Manage System</h1>
+            </div>
+        </div>
+    </nav>
 
-<%= yield %>
+    <div class="container">
+    <%= yield %>
+    </div>
 
 </body>
 </html>

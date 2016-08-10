@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Use bootstrap
+gem 'twitter-bootstrap-rails', '~> 3.2', '>= 3.2.2'
+
 # Repository for collecting Locale data
 gem 'rails-i18n', '~> 4.0.0'
 

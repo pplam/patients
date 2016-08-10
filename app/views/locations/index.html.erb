@@ -2,7 +2,8 @@
 
 <h1>Listing Locations</h1>
 
-<table>
+<div class="container">
+<table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
       <th>Code</th>
@@ -23,8 +24,14 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>
 
-<%= link_to 'New Location', new_location_path %> |
-<%= link_to 'Patients', patients_path %>
+<nav class="navbar">
+    <div class="container center">
+        <ul class="nav">
+            <li class="navbar-text btn btn-default"><%= link_to 'New Location', new_location_path %></li>
+            <li class="navbar-text btn btn-default"><%= link_to 'Patients', patients_path %></li>
+        </ul>
+    </div>
+</nav>
