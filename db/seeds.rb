@@ -6,6 +6,5 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
-Location.create! code: 001, name: "Beijing"
-Location.create! code: 002, name: "Shanghai"
-Location.create! code: 003, name: "Shenzhen"
+Location.create! code: 001, name: "Test location 1"
+Location.create! code: 002, name: "Test location 2"

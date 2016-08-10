@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# Repository for collecting Locale data
+gem 'rails-i18n', '~> 4.0.0'
 
 # Gem for hiding and restoring records without actually deleting them
 gem "paranoia", "~> 2.0"
