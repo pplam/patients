@@ -6,4 +6,3 @@ Please setup database by:
                           rake db:setup
 before you explore it.
 
-<tt>rake doc:app</tt>.
