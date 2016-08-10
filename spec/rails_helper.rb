@@ -35,6 +35,11 @@ RSpec.configure do |config|
   #     pat.status "Initial"
   #     pat.location_id 1
   # end
+  # Include Capybara
+  config.include Capybara::DSL
+  Capybara.register_driver :selenium do |app|
+        Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
 
   # Configure database_cleaner
     config.before(:suite) do

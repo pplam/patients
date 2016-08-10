@@ -23,7 +23,7 @@ RSpec.describe "patients/new", :type => :view do
 
       assert_select "input#patient_last_name[name=?]", "patient[last_name]"
 
-      assert_select "input[type=? name=?]", "radio", "patient[gender]", count: 3
+      assert_select "input[type=?][name=?]", "radio", "patient[gender]", count: 3
 
       assert_select "select#patient_status[name=?]", "patient[status]"
 

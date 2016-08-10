@@ -42,6 +42,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'selenium-webdriver'
+  # gem "chromedriver-helper"
   gem 'database_cleaner'
 end
 
